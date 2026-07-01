@@ -84,7 +84,7 @@ export default function HomePage(){
                   <Sparkles className="w-4 h-4 text-primary" /> {categories.length} {t('sections')}
                 </span>
               </div>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div className="mt-4 grid gap-4">
                 {categories.map(category => {
                   const Icon = categoryIcon(category.name)
                   const label = localizedCategoryName(t, category.id, category.name)
@@ -130,35 +130,6 @@ export default function HomePage(){
                   )
                 })}
               </div>
-            </section>
-
-            {/* If a category is selected, show its dishes inline here immediately */}
-            {selectedCategory && (
-              <section className="mt-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">{t('menuTitle')}</p>
-                    <h2 className="text-2xl font-extrabold tracking-tight">{localizedCategoryName(t, selectedCategory, categories.find(c=>c.id===selectedCategory)?.name)}</h2>
-                  </div>
-                  <span className="rounded-full bg-slate-100 px-3 py-2 text-sm text-slate-600">{shownItems.length} {t('items')}</span>
-                </div>
-                <div className="mt-4 space-y-3">
-                  {shownItems.length ? shownItems.map(d=> <FoodCard key={d.id} dish={d} />) : <div className="rounded-3xl bg-white p-6 text-center text-slate-500 shadow-sm">{t('noResults')}</div>}
-                </div>
-              </section>
-            )}
-
-            <section className="mt-8">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.24em] text-slate-500">{t('menuTitle')}</p>
-                  <h2 className="text-2xl font-extrabold tracking-tight">{selectedCategory ? localizedCategoryName(t, selectedCategory, categories.find(c=>c.id===selectedCategory)?.name) : t('allDishes')}</h2>
-                </div>
-                <span className="rounded-full bg-slate-100 px-3 py-2 text-sm text-slate-600">{shownItems.length} {t('items')}</span>
-              </div>
-              <motion.div layout className="mt-4 space-y-3">
-                {shownItems.length ? shownItems.map(d=> <FoodCard key={d.id} dish={d} />) : <div className="rounded-3xl bg-white p-6 text-center text-slate-500 shadow-sm">{t('noResults')}</div>}
-              </motion.div>
             </section>
 
             <section className="mt-6 rounded-[28px] bg-primary text-white p-5 shadow-xl">
