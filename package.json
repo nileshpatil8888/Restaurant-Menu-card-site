@@ -1,0 +1,33 @@
+{
+  "name": "swarna-sparsh-menu",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "generate:images": "node --experimental-json-modules scripts/generate_ai_images.js",
+    "generate:hd-images": "node --experimental-json-modules scripts/fetch_hd_images.js",
+    "generate:google-images": "node --experimental-json-modules scripts/fetch_google_images.js"
+  },
+  "dependencies": {
+    "framer-motion": "^10.12.16",
+    "i18next": "^23.0.1",
+    "lucide-react": "^0.268.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^12.3.1",
+    "react-router-dom": "^6.18.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.1",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.6.2",
+    "vite": "^5.1.8"
+  }
+}
