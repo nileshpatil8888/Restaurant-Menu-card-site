@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Sparkles, Coffee, Flame, Utensils, Pizza, CircleDot, Layers, Phone } from 'lucide-react'
 import Header from '../components/Header'
 import SearchBar from '../components/SearchBar'
@@ -91,7 +91,11 @@ export default function HomePage(){
                   const subtitle = localizedCategorySubtitle(t, category.id, category.sub)
                   return (
                     <div key={category.id}>
-                      <motion.button whileHover={{y:-4}} onClick={()=>setSelectedCategory(prev => prev === category.id ? null : category.id)} className="group rounded-[28px] border border-[#e9dfd3] bg-white p-5 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-primary w-full">
+                      <motion.button
+                        whileHover={{ y: -4 }}
+                        onClick={() => setSelectedCategory(prev => prev === category.id ? null : category.id)}
+                        className={`group rounded-[28px] border border-[#e9dfd3] bg-white p-5 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-primary w-full ${selectedCategory === category.id ? 'ring-2 ring-primary/30 bg-primary/5' : ''}`}
+                      >
                         <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-all group-hover:bg-primary group-hover:text-white">
                           <Icon className="w-6 h-6" />
                         </div>
@@ -99,20 +103,29 @@ export default function HomePage(){
                         <p className="mt-2 text-sm leading-6 text-slate-500">{subtitle}</p>
                       </motion.button>
 
-                      {selectedCategory === category.id && (
-                        <div className="mt-3">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <p className="text-xs uppercase tracking-[0.24em] text-slate-500">{t('menuTitle')}</p>
-                              <h3 className="text-lg font-semibold">{label}</h3>
+                      <AnimatePresence>
+                        {selectedCategory === category.id && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -6 }}
+                            transition={{ duration: 0.18 }}
+                            className="mt-3"
+                            layout
+                          >
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <p className="text-xs uppercase tracking-[0.24em] text-slate-500">{t('menuTitle')}</p>
+                                <h3 className="text-lg font-semibold">{label}</h3>
+                              </div>
+                              <span className="rounded-full bg-slate-100 px-3 py-2 text-sm text-slate-600">{shownItems.length} {t('items')}</span>
                             </div>
-                            <span className="rounded-full bg-slate-100 px-3 py-2 text-sm text-slate-600">{shownItems.length} {t('items')}</span>
-                          </div>
-                          <div className="mt-3 space-y-3">
-                            {shownItems.length ? shownItems.map(d=> <FoodCard key={d.id} dish={d} />) : <div className="rounded-3xl bg-white p-6 text-center text-slate-500 shadow-sm">{t('noResults')}</div>}
-                          </div>
-                        </div>
-                      )}
+                            <div className="mt-3 space-y-3">
+                              {shownItems.length ? shownItems.map(d => <FoodCard key={d.id} dish={d} />) : <div className="rounded-3xl bg-white p-6 text-center text-slate-500 shadow-sm">{t('noResults')}</div>}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   )
                 })}
