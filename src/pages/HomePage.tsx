@@ -90,13 +90,30 @@ export default function HomePage(){
                   const label = localizedCategoryName(t, category.id, category.name)
                   const subtitle = localizedCategorySubtitle(t, category.id, category.sub)
                   return (
-                    <motion.button key={category.id} whileHover={{y:-4}} onClick={()=>setSelectedCategory(category.id)} className="group rounded-[28px] border border-[#e9dfd3] bg-white p-5 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-primary">
-                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-all group-hover:bg-primary group-hover:text-white">
-                        <Icon className="w-6 h-6" />
-                      </div>
-                      <h3 className="mt-4 text-lg font-semibold text-slate-900">{label}</h3>
-                      <p className="mt-2 text-sm leading-6 text-slate-500">{subtitle}</p>
-                    </motion.button>
+                    <div key={category.id}>
+                      <motion.button whileHover={{y:-4}} onClick={()=>setSelectedCategory(prev => prev === category.id ? null : category.id)} className="group rounded-[28px] border border-[#e9dfd3] bg-white p-5 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-primary w-full">
+                        <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-all group-hover:bg-primary group-hover:text-white">
+                          <Icon className="w-6 h-6" />
+                        </div>
+                        <h3 className="mt-4 text-lg font-semibold text-slate-900">{label}</h3>
+                        <p className="mt-2 text-sm leading-6 text-slate-500">{subtitle}</p>
+                      </motion.button>
+
+                      {selectedCategory === category.id && (
+                        <div className="mt-3">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-xs uppercase tracking-[0.24em] text-slate-500">{t('menuTitle')}</p>
+                              <h3 className="text-lg font-semibold">{label}</h3>
+                            </div>
+                            <span className="rounded-full bg-slate-100 px-3 py-2 text-sm text-slate-600">{shownItems.length} {t('items')}</span>
+                          </div>
+                          <div className="mt-3 space-y-3">
+                            {shownItems.length ? shownItems.map(d=> <FoodCard key={d.id} dish={d} />) : <div className="rounded-3xl bg-white p-6 text-center text-slate-500 shadow-sm">{t('noResults')}</div>}
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   )
                 })}
               </div>
