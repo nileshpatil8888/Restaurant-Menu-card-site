@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Sparkles, Coffee, Flame, Utensils, Pizza, CircleDot, Layers, Phone } from 'lucide-react'
 import Header from '../components/Header'
@@ -47,17 +47,6 @@ export default function HomePage(){
 
   const featured = items.filter(item => item.tags?.includes('bestseller') || item.tags?.includes('chef')).slice(0, 4)
   const shownItems = filtered
-
-  const menuRef = useRef<HTMLElement | null>(null)
-
-  useEffect(() => {
-    if (selectedCategory && menuRef.current) {
-      // scroll the menu section into view with a small offset so the heading is visible
-      const rect = menuRef.current.getBoundingClientRect()
-      const top = window.scrollY + rect.top - 100
-      window.scrollTo({ top, behavior: 'smooth' })
-    }
-  }, [selectedCategory])
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(240,224,198,0.28),_transparent_50%),_radial-gradient(circle_at_bottom_right,_rgba(59,43,32,0.12),_transparent_35%)] text-slate-900">
@@ -139,7 +128,23 @@ export default function HomePage(){
               </div>
             </section>
 
-            <section ref={menuRef} className="mt-8">
+            {/* If a category is selected, show its dishes inline here immediately */}
+            {selectedCategory && (
+              <section className="mt-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">{t('menuTitle')}</p>
+                    <h2 className="text-2xl font-extrabold tracking-tight">{localizedCategoryName(t, selectedCategory, categories.find(c=>c.id===selectedCategory)?.name)}</h2>
+                  </div>
+                  <span className="rounded-full bg-slate-100 px-3 py-2 text-sm text-slate-600">{shownItems.length} {t('items')}</span>
+                </div>
+                <div className="mt-4 space-y-3">
+                  {shownItems.length ? shownItems.map(d=> <FoodCard key={d.id} dish={d} />) : <div className="rounded-3xl bg-white p-6 text-center text-slate-500 shadow-sm">{t('noResults')}</div>}
+                </div>
+              </section>
+            )}
+
+            <section className="mt-8">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="text-xs uppercase tracking-[0.24em] text-slate-500">{t('menuTitle')}</p>
