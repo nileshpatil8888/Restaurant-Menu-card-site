@@ -102,32 +102,6 @@ export default function HomePage(){
               </div>
             </section>
 
-            <section className="mt-7">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.24em] text-slate-500">{t('houseFavourites')}</p>
-                  <h2 className="text-2xl font-extrabold tracking-tight">{t('iconicPicks')}</h2>
-                </div>
-                <span className="text-sm text-slate-500">{featured.length} {t('items')}</span>
-              </div>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                {featured.map(item => {
-                  const itemName = t(`menu.items.${item.id}.name`, { defaultValue: item.name })
-                  return (
-                    <motion.div key={item.id} whileHover={{y:-4}} className="overflow-hidden rounded-[28px] bg-[#fff6eb] p-5 shadow-sm">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-[#3b2b20] text-white">{itemName.charAt(0)}</div>
-                        <div>
-                          <p className="font-semibold text-slate-900">{itemName}</p>
-                          <p className="text-sm text-slate-500">₹{item.price}</p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )
-                })}
-              </div>
-            </section>
-
             {/* If a category is selected, show its dishes inline here immediately */}
             {selectedCategory && (
               <section className="mt-6">
