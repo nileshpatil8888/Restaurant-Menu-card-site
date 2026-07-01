@@ -20,10 +20,10 @@ export default function FoodCard({dish}:{dish:any}){
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex justify-between items-start gap-3">
-              <h3 className="font-semibold text-lg truncate">{localizedName}</h3>
+              <h3 className="font-semibold text-lg leading-tight break-words whitespace-normal">{localizedName}</h3>
               <div className="text-primary font-extrabold">₹{dish.price}</div>
             </div>
-            {localizedDescription && <p className="text-sm text-gray-600 mt-1 truncate">{localizedDescription}</p>}
+            {localizedDescription && <p className="text-sm text-gray-600 mt-1">{localizedDescription}</p>}
             <div className="mt-3 flex items-center gap-2 text-xs">
               <span className={`px-2 py-1 rounded ${isVeg? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>{isVeg? t('vegetarian') : t('nonVegetarian')}</span>
               {tags.includes('chef') && <span className="px-2 py-1 bg-amber-50 text-amber-800 rounded">{t('chefChoice')}</span>}
